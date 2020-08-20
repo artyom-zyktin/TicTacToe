@@ -8,12 +8,19 @@
 class Player
 {
 public:
-	Player(Field* field, Marker marker, std::string name);
+	Player();
+	virtual ~Player();
 
 	virtual void MakeMove(int i, int j);
 
-	std::string& GetName();
-	Marker GetMarker();
+	void SetField(Field* field);
+	Field const* GetField() const;
+
+	void SetMarker(Marker marker);
+	Marker GetMarker() const;
+
+	void SetName(const std::string& name);
+	std::string const & GetName() const;
 
 protected:
 
@@ -25,11 +32,8 @@ private:
 };
 
 class Bot : public Player
-{
-public:
-	Bot(Field* field, Marker marker);
-	virtual void MakeMove(int i, int j) override;
-};
+{};
+
 
 #endif//PLAYER_H
 
