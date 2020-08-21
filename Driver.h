@@ -49,54 +49,31 @@ inline Driver<TView, TPlayer1, TPlayer2>::Driver()
 template<class TView, class TPLayer1, class TPlayer2>
 inline void Driver<TView, TPLayer1, TPlayer2>::Go()
 {
-	std::cout << "1\n";
-
 	_setCurrentPlayer(_view->GetFirstPLayer());
-
-	std::cout << "2\n";
 
 	_getCurrentPlayer()->SetName(_view->GetString("Set name of firast player"));
 	_getCurrentPlayer()->SetName(_view->GetString("Set name of second player"));
 
-	std::cout << "3\n";
-
 	Player* _player = _getCurrentPlayer();
 	_player->SetMarker(_view->GetMarker(_player->GetName()));
 
-	std::cout << "4\n";
+	_getCurrentPlayer()->SetMarker(_player->GetMarker() == Marker::x ? Marker::o : Marker::x);
 
-	_player = _getCurrentPlayer();
-	_player->SetMarker(_view->GetMarker(_player->GetName()));
-
-	std::cout << "5\n";
-
-	_view->ShowMessage(_field->GetState() == State::draw ? "Draw" :
-		_field->GetState() == State::x_win ? "X win" :
-		_field->GetState() == State::o_win ? "O win" :
-		_field->GetState() == State::in_game ? "in game" : "Error");
+	_view->DrawField();
 
 	while (_field->GetState() == State::in_game)
 	{
-		std::cout << "5.1\n";
 		_player = _getCurrentPlayer();
-		std::cout << "5.2\n";
+
 		if (typeid(_player) == typeid(Bot)) _player->MakeMove(0, 0);
 		else
 		{
-			std::cout << "5.3.1\n";
 			Coords _coords = _view->GetCoords();
 			_player->MakeMove(_coords.i, _coords.j);
-			std::cout << "5.3.2\n";
 		}
+
+		_view->DrawField();
 	}
-
-	std::cout << "6\n";
-
-	_view->ShowMessage(_field->GetState() == State::draw ? "Draw" :
-		_field->GetState() == State::x_win ? "X win" :
-		_field->GetState() == State::o_win ? "O win" : "Error");
-
-	std::cout << "7\n";
 }
 
 template<class TView, class TPLayer1, class TPlayer2>

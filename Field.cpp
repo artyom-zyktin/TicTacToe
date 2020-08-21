@@ -59,5 +59,7 @@ bool Field::_isWin(Marker marker)
 	if (_cells[0][2] == _marker && _cells[1][2] == _marker && _cells[2][2] == _marker) return true;
 
 	if (_cells[0][0] == _marker && _cells[1][1] == _marker && _cells[2][2] == _marker) return true;
-	if (_cells[0][0] == _marker && _cells[1][1] == _marker && _cells[2][2] == _marker) return true;
+	if (_cells[2][0] == _marker && _cells[1][1] == _marker && _cells[0][2] == _marker) return true;
+
+	return false;
 }

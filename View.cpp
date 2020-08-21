@@ -37,12 +37,16 @@ void View::DrawField()
 	{
 	case State::in_game:
 		std::cout << "\nIn game\n";
+		break;
 	case State::draw:
 		std::cout << "\nDraw\n";
+		break;
 	case State::o_win:
 		std::cout << "\nO wins\n";
+		break;
 	case State::x_win:
 		std::cout << "\nX wins\n";
+		break;
 	}		         
 }
 
