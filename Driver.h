@@ -77,31 +77,35 @@ inline Driver<View, Player, Bot>::Driver()
 template<class TView, class TPLayer1, class TPlayer2>
 inline void Driver<TView, TPLayer1, TPlayer2>::Go()
 {
-	_setCurrentPlayer(_view->GetFirstPLayer());
+    _view->Show();
 
-	_getCurrentPlayer()->SetName(_view->GetString("Set name of firast player"));
-	_getCurrentPlayer()->SetName(_view->GetString("Set name of second player"));
+    _player1->SetName(_view->GetString("Set name of player 1"));
+    _player2->SetName(_view->GetString("Set name of player 2"));
 
-	Player* _player = _getCurrentPlayer();
-	_player->SetMarker(_view->GetMarker(_player->GetName()));
+    _player1->SetMarker(_view->GetMarker(_player1->GetName()));
+    _player2->SetMarker(_player1->GetMarker() == Marker::x ? Marker::o : Marker::x);
 
-	_getCurrentPlayer()->SetMarker(_player->GetMarker() == Marker::x ? Marker::o : Marker::x);
+    _setCurrentPlayer(_view->GetFirstPlayer());
 
-	_view->DrawField();
-
-	while (_field->GetState() == State::in_game)
-	{
+    Player* _player;
+    while (_field->GetState() == State::in_game)
+    {
         _player = _getCurrentPlayer();
 
-        if (_player != _player2 && _second_player_is_bot)
+        _view->ShowMessage(_player->GetName()+ "'s move:\n");
+
+        if ((_player == _player1 && _first_player_is_bot) || ((_player == _player2 && _second_player_is_bot)))
         {
-            Coords _coords = _view->GetCoords();
-            _player->MakeMove(_coords.i, _coords.j);
+            _player->MakeMove(0, 0);
         }
-        else _player->MakeMove(0, 0);
+        else
+        {
+            Coords _move = _view->GetCoords();
+            _player->MakeMove(_move.i, _move.j);
+        }
 
         _view->DrawField();
-	}
+    }
 }
 
 template<class TView, class TPLayer1, class TPlayer2>

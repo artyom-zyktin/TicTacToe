@@ -55,26 +55,23 @@ void View::ShowMessage(const std::string& message)
 	std::cout << message << std::endl;
 }
 
-FirstPlayer View::GetFirstPLayer()
+FirstPlayer View::GetFirstPlayer()
 {
-	/*using namespace std;
+    using namespace std;
 
-	cout << "Choose first player (1 or 2): ";
+    cout << "Choose first player (1 or 2): ";
 
-	string _player_n;
+    char _player_n;
 	
-	cin >> _player_n;
+    cin >> _player_n;
 
-	cout << _player_n << endl;
+    if ((_player_n != '1') && (_player_n != '2'))
+    {
+        cout << "Player num must be '1' or '2'\n";
+        return GetFirstPlayer();
+    }
 
-	if ((_player_n != "1") || _player_n != "2")
-	{
-		cout << "Player num must be '1' or '2'\n";
-		return GetFirstPLayer();
-	}
-
-	return _player_n == "2" ? FirstPlayer::player_1 : FirstPlayer::player_2;*/
-	return FirstPlayer::player_1;
+    return _player_n == '1' ? FirstPlayer::player_2 : FirstPlayer::player_1;// Это костыль, так и должжно быть
 }
 
 Marker View::GetMarker(const std::string& player_name)
