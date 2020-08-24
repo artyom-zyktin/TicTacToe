@@ -5,11 +5,6 @@
 
 #include "Field.h"
 
-struct Coords
-{
-	int i, j;
-};
-
 enum class FirstPlayer
 {
 	player_1, player_2

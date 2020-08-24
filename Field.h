@@ -11,28 +11,35 @@ enum class State
 	in_game, draw, x_win, o_win
 };
 
+struct Coords
+{
+    int i, j;
+};
+
 class Field
 {
 public:
 	Field();
-	~Field();
+    Field(const Field& other);
 
-	State GetState();
+    virtual ~Field();
+
+    State GetState() const;
 
 	void SetMarker(Marker marker, int i, int j);
 
-	char const** GetCells();
+    char const** GetCells() const;
 
 protected:
 
-	virtual bool _hasEmptyCells();
-	virtual bool _isWin(Marker marker);
+    virtual bool _hasEmptyCells() const;
+    virtual bool _isWin(Marker marker) const;
 
 private:
 
-	char** _cells;
+    char** _cells;
 
-	inline char _marker2Char(Marker marker) { return marker == Marker::x ? 'x' : 'o'; }
+    inline char _marker2Char(Marker marker) const { return marker == Marker::x ? 'x' : 'o'; }
 };
 
 #endif//FIELD_H

@@ -25,7 +25,7 @@ void View::DrawField()
 {
 	if (_field == nullptr) return;
 
-	char const ** _cells = _field->GetCells();
+    const char ** _cells = _field->GetCells();
 
 	for (int _i = 0; _i < 3; _i++)
 	{

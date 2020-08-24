@@ -4,7 +4,7 @@
 
 int main()
 {
-	Driver <View, Player, Player> d;
+    Driver <View, Player, Bot> d;
 
 	d.Go();
 

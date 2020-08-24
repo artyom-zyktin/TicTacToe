@@ -32,7 +32,17 @@ private:
 };
 
 class Bot : public Player
-{};
+{
+public:
+    virtual void MakeMove(int i, int j);
+protected:
+
+private:
+    virtual int _analys(const Field field, Marker player, Marker bot, Coords& out_coords);
+
+    int _rateOfState(const State state, Marker marker);
+
+};
 
 
 #endif//PLAYER_H

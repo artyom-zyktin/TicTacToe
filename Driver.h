@@ -34,17 +34,45 @@ protected:
 private:
 	Player* _current_player;
 
+    bool _second_player_is_bot;
+    bool _first_player_is_bot;
+
 };
 
 template<class TView, class TPlayer1, class TPlayer2>
 inline Driver<TView, TPlayer1, TPlayer2>::Driver()
-	: _field(new Field), _view(new TView()), _player1(new TPlayer1()), _player2(new TPlayer2())
+    : _field(new Field), _view(new TView()), _player1(new TPlayer1()), _player2(new TPlayer2()),
+      _second_player_is_bot(false), _first_player_is_bot(false)
 {
 	_view->SetField(_field);
 
 	_player1->SetField(_field);
 	_player2->SetField(_field);
 }
+
+template<>
+inline Driver<View, Bot, Player>::Driver()
+    : _field(new Field), _view(new View), _player1(new Bot), _player2(new Player),
+      _second_player_is_bot(false), _first_player_is_bot(true)
+{
+    _view->SetField(_field);
+
+    _player1->SetField(_field);
+    _player2->SetField(_field);
+}
+
+template<>
+inline Driver<View, Player, Bot>::Driver()
+    : _field(new Field), _view(new View), _player1(new Player), _player2(new Bot),
+      _second_player_is_bot(true), _first_player_is_bot(false)
+{
+    _view->SetField(_field);
+
+    _player1->SetField(_field);
+    _player2->SetField(_field);
+}
+
+#include <iostream>
 
 template<class TView, class TPLayer1, class TPlayer2>
 inline void Driver<TView, TPLayer1, TPlayer2>::Go()
@@ -63,16 +91,16 @@ inline void Driver<TView, TPLayer1, TPlayer2>::Go()
 
 	while (_field->GetState() == State::in_game)
 	{
-		_player = _getCurrentPlayer();
+        _player = _getCurrentPlayer();
 
-		if (typeid(_player) == typeid(Bot)) _player->MakeMove(0, 0);
-		else
-		{
-			Coords _coords = _view->GetCoords();
-			_player->MakeMove(_coords.i, _coords.j);
-		}
+        if (_player != _player2 && _second_player_is_bot)
+        {
+            Coords _coords = _view->GetCoords();
+            _player->MakeMove(_coords.i, _coords.j);
+        }
+        else _player->MakeMove(0, 0);
 
-		_view->DrawField();
+        _view->DrawField();
 	}
 }
 
