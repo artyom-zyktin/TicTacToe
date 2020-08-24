@@ -24,7 +24,7 @@ public:
 	virtual void DrawField();
 	virtual void ShowMessage(const std::string& message);
 
-	virtual FirstPlayer GetFirstPLayer();
+    virtual FirstPlayer GetFirstPlayer();
 
 	virtual Marker GetMarker(const std::string& player_name);
 	virtual std::string GetString(const std::string& message);
@@ -37,6 +37,8 @@ protected:
 	Field* _field;
 
 };
+
+using ConcoleView = View;
 
 
 #endif//VIEW_H
