@@ -1,12 +1,19 @@
 #include "Driver.h"
 #include "Player.h"
 #include "View.h"
+#include "GuiView.h"
 
-int main()
+#include <QApplication>
+
+int main(int argn, char** argv)
 {
-    Driver <View, Player, Bot> d;
+
+
+    QApplication app (argn, argv);
+
+    Driver <GuiView, Player, Bot> d;
 
 	d.Go();
 
-	return 0;
+    return app.exec();
 }
