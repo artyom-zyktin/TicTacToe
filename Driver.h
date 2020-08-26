@@ -5,6 +5,7 @@
 #include "View.h"
 #include "Player.h"
 #include "Field.h"
+#include "GuiView.h"
 
 #include <typeinfo>
 
@@ -72,7 +73,27 @@ inline Driver<View, Player, Bot>::Driver()
     _player2->SetField(_field);
 }
 
-#include <iostream>
+template<>
+inline Driver<GuiView, Bot, Player>::Driver()
+    : _field(new Field), _view(new GuiView), _player1(new Bot), _player2(new Player),
+      _second_player_is_bot(false), _first_player_is_bot(true)
+{
+    _view->SetField(_field);
+
+    _player1->SetField(_field);
+    _player2->SetField(_field);
+}
+
+template<>
+inline Driver<GuiView, Player, Bot>::Driver()
+    : _field(new Field), _view(new GuiView), _player1(new Player), _player2(new Bot),
+      _second_player_is_bot(true), _first_player_is_bot(false)
+{
+    _view->SetField(_field);
+
+    _player1->SetField(_field);
+    _player2->SetField(_field);
+}
 
 template<class TView, class TPLayer1, class TPlayer2>
 inline void Driver<TView, TPLayer1, TPlayer2>::Go()
