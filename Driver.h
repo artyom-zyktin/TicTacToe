@@ -20,6 +20,13 @@ class Driver
 
 public:
 	Driver();
+    ~Driver()
+    {
+        delete _field;
+        delete _view;
+        delete _player1;
+        delete _player2;
+    }
 
 	void Go();
 
